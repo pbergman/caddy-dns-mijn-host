@@ -4,6 +4,15 @@ Mijn Host module for Caddy
 This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It can be used to manage DNS records with [mijn host](https://mijn.host/).
 It makes use of [pbergman/libdns-mijn-host](https://github.com/pbergman/libdns-mijn-host)
 
+## Install caddy module
+
+use xcaddy to build a version with this module
+
+```
+xcaddy build --with github.com/pbergman/caddy-dns-mijn-host
+```
+
+
 ## Caddy module name
 
 ```
