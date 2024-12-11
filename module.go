@@ -30,12 +30,10 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
-//	providername [<private_key_path>] {
-//	    api_token <api_token>
+//	providername [<api_key> <private_key_path>] {
+//	    api_key <api_key>
 //	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
-
-	caddy.Log()
 	for d.Next() {
 		if d.NextArg() {
 			p.Provider.SetApiKey(d.Val())
