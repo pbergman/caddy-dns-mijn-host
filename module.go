@@ -17,26 +17,25 @@ func init() {
 func (Provider) CaddyModule() caddy.ModuleInfo {
 	return caddy.ModuleInfo{
 		ID:  "dns.providers.mijn-host",
-		New: func() caddy.Module { return &Provider{mijn_host.NewProvider("")} },
+		New: func() caddy.Module { return &Provider{mijn_host.NewProvider()} },
 	}
 }
 
 // Provision sets up the module. Implements caddy.Provisioner.
-// TODO: This is just an example. Useful to allow env variable placeholders; update accordingly.
 func (p *Provider) Provision(ctx caddy.Context) error {
-	//repl := caddy.NewReplacer()
+	p.Provider.ApiKey = caddy.NewReplacer().ReplaceAll(p.Provider.ApiKey, "")
 	return nil
 }
 
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
-//	providername [<api_key> <private_key_path>] {
+//	providername  [<api_key> <private_key_path>] {
 //	    api_key <api_key>
 //	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
 		if d.NextArg() {
-			p.Provider.SetApiKey(d.Val())
+			p.Provider.ApiKey = d.Val()
 		}
 		if d.NextArg() {
 			return d.ArgErr()
@@ -44,11 +43,11 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			switch d.Val() {
 			case "api_key":
-				if p.Provider.GetApiKey() != "" {
+				if p.Provider.ApiKey != "" {
 					return d.Err("ApiKey already set")
 				}
 				if d.NextArg() {
-					p.Provider.SetApiKey(d.Val())
+					p.Provider.ApiKey = d.Val()
 				}
 				if d.NextArg() {
 					return d.ArgErr()
@@ -58,7 +57,7 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 			}
 		}
 	}
-	if p.Provider.GetApiKey() == "" {
+	if p.Provider.ApiKey == "" {
 		return d.Err("Missing ApiKey")
 	}
 	return nil
