@@ -12,7 +12,7 @@ import (
 type Provider struct{ *mijn_host.Provider }
 
 func init() {
-	caddy.RegisterModule((*Provider)(nil))
+	caddy.RegisterModule(Provider{})
 }
 
 // CaddyModule returns the Caddy module information.
