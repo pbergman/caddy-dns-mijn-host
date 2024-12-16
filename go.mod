@@ -4,7 +4,7 @@ go 1.22.9
 
 require (
 	github.com/caddyserver/caddy/v2 v2.8.4
-	github.com/pbergman/libdns-mijn-host v0.0.0-20241213135138-3a5aca585c70
+	github.com/pbergman/libdns-mijn-host v0.0.0-20241216132242-bf7c71367d06
 )
 
 require (
