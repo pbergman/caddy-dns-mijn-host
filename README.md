@@ -58,9 +58,9 @@ or alternatively:
 
 ```
 tls {
-	dns transip {
-		account_name <accountName> 
-		private_key_path <privateKeyPath>
+	dns  mijn-host {
+		api_key <api_key> 
+		debug <true|false>
 	}
 }
 ```
